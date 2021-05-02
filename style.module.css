@@ -1,0 +1,136 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    
+}
+body{
+    background-color: #0D4171;
+  }
+.mainWrapper{
+    width: 905px;
+    height: 100vh;
+    margin: 0 auto;
+
+    background-color: #157EDF;
+    border-radius: 11.63vh;
+    
+    text-align: center;
+ 
+    
+}
+.mainWrapper span{
+      
+    width: 100%;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    border-radius: 20px;
+    /*
+    position: absolute;
+    transform: translate(-50%,-50%);
+    top: 50%;
+    left: 50%;
+    */
+    margin-top: 1.5vh;
+    display: inline-block;
+    background-color: #409EF6;
+
+    font-size: 64px;
+    color: white;
+
+}
+.mainWrapper h2{
+    width: 756px;
+    height: 9.73vh;
+    background-color: #409EF6;
+    
+    border-radius: 20px;
+    
+    font-size: 48px;
+    color: white;
+
+    display: inline-block;
+
+    margin-top: 58px;
+    line-height:  9.73vh;
+}
+.mainWrapper .timerButtonWrapper{
+    text-align: center;
+    display: inline-block  ;
+    width: 756px;
+
+    position: relative;
+    background-color: inherit;
+    margin-top: 1.5vh;
+}
+    
+    .mainWrapper .timerButtonWrapper .timerButton{
+        display: inline-block;
+        font-size: 30px;
+        padding: 30px 50px;
+        color: white;
+        background-color: #409EF6;
+        border-radius: 20px;
+        border: 0;
+        margin-top: 1vh;
+        cursor: pointer;
+        
+    }
+    .mainWrapper .timerButtonWrapper .timerButton.dispNone{
+        display: none;
+    }
+.leaderbord{
+    margin-top: 1.5vh;
+    display: inline-block;
+
+    width: 756px;
+    height: 45.94vh;
+    border-radius: 20px;
+    background-color: #409EF6;
+
+    text-align: center; 
+    color: white;
+
+    font-size: 36px;
+    
+}
+
+.leaderbord table{
+    display: inline-block;
+    text-align: center;
+    margin-top: 20px;
+
+}
+ 
+    .leaderbord table thead th{
+        column-width:calc(717px / 2) ;
+        background-color: rgba(255,255,255, 0.31);
+        border-radius: 10px;
+        height: 69px;
+        
+    }
+    
+    .leaderbord table tbody{
+        display: inline-block;
+        text-align: center; 
+
+        column-width: 717px;
+        
+    
+
+    } 
+        
+    .leaderbord table tbody td{
+        column-width:calc(717px / 2) ;
+        background-color: rgba(255,255,255,0.31);
+        border-radius: 10px;
+        height: 69px;
+        
+    }
+    .leaderbord table thead{
+        font-weight: bold;     
+        display: inline-block;
+        text-align: center; 
+        column-width: 717px;     
+    }
+   

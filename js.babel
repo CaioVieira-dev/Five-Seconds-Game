@@ -1,0 +1,204 @@
+const container = document.getElementById('main');
+
+class FirstPart extends React.Component {
+
+    //timerOn = false;
+
+
+    render() {
+
+        return (
+            <div >
+                <h2>Clique ao chegar em 5 segundos</h2>
+            </div>
+        )
+    }
+}
+
+class Cronometro extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            isRunning: false,
+            curTime: 0,
+            timerOn: false,
+        }
+    }
+
+    toggleTimer() {
+        //console.log(this.state.timerOn)
+        this.setState(this.state = { timerOn: !this.state.timerOn });
+        // console.log(this.state.timerOn)
+        if (this.state.timerOn) {
+            this.timer();
+        } else {
+            this.stopTimer();
+            let time = $('.timerButtonWrapper span').text().split(' ');
+            //console.log(time[1]);
+            this.props.onGameEnd(time);
+            this.setState(this.state = { curTime: 0 });
+        }
+    }
+
+    timer() {
+        this.timerId = setInterval(() => this.tick(), 10); //10ms ticks
+    }
+
+    tick() {
+        this.setState({
+            curTime: this.state.curTime + 1,
+        });
+        //console.log(this.state.curTime);
+    }
+
+    stopTimer() {
+        clearInterval(this.timerId);
+    }
+
+
+    formatTime(time) {
+        // console.log(parseInt(time / 100));
+        let seconds = parseInt(time / 100);
+        //console.log(seconds);
+        let hundredmiliseconds = parseInt(time % 100 / 10);
+        //console.log(hundredmiliseconds);
+        let tenmilisecond = parseInt(time % 100 % 10);
+        return seconds + ":" + hundredmiliseconds + tenmilisecond;
+
+
+    }
+
+
+    render() {
+        return (
+            <div className="timerButtonWrapper">
+                <span>Tempo: {this.formatTime(this.state.curTime)}</span>
+                <button onClick={() => this.toggleTimer()} className="timerButton">{this.state.timerOn ? "Parar" : "Iniciar"}</button>
+            </div>
+        )
+    };
+
+}
+function ListItem(props) {
+    return (
+        <tr>
+            <td>{props.player}</td>
+            <td>{props.time}</td>
+        </tr>
+    );
+}
+function ShowList(props) {
+    //console.log(props.game);
+    const listItems = props.games.map((game) =>
+        <ListItem
+            key={game.playerName}
+            player={game.playerName}
+            time={game.time}
+        />
+    );
+
+    return (
+        <tbody>
+            {listItems}
+        </tbody>
+    )
+}
+class Leaderboard extends React.Component {
+
+    constructor(props) {
+        super(props);
+    }
+
+    organizeleaderboard() {
+
+        const pastGames = this.props.pastGames;
+        console.log(pastGames);
+        let newList = pastGames.map((game) => {
+            //    console.log(Number(game.time.replace(':', '.')).toFixed(2));
+            let playerName = game.playerName;
+            let time = Number(game.time.replace(':', '.')).toFixed(2);
+            return { playerName, time };
+        });
+        // console.log(newList);
+        newList.sort((a, b) => { return b.time - a.time });
+        // console.log(newList);
+        return newList;
+    }
+
+    render() {
+
+        const leaderboard = this.organizeleaderboard();
+
+        return (
+
+            <section className='leaderbord'>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Jogador</th>
+                            <th>Tempo</th>
+                        </tr>
+                    </thead>
+                    <ShowList games={leaderboard} />
+                </table>
+            </section>
+
+        )
+    }
+}
+class SecondPart extends React.Component {
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            leaderboardList: [],
+            currentGameTime: '',
+        };
+        this.registerTime = this.registerTime.bind(this);
+
+        // console.log(this.state.leaderboardList[0]);
+    }
+
+    registerTime(newTime) {
+        this.setState(this.state = { currentGameTime: newTime[1] });
+        //console.log(this.state.currentGameTime);
+        //console.log(this.state.leaderboardList);
+        let player = prompt('Por favor digite o seu nome', 'Caio Vieira');
+        let newScore = { playerName: player, time: this.state.currentGameTime };
+
+
+        //console.log(array);
+        this.setState(state => {
+            const leaderboardList = state.leaderboardList.concat(newScore);
+            return { leaderboardList };
+        });
+        //console.log(this.state.leaderboardList);
+    }
+
+    render() {
+        // const playedGames = this.state.leaderboardList;
+        const playedGames = this.state.leaderboardList;
+        //console.log(playedGames);
+
+        return (
+            <div>
+                <Cronometro onGameEnd={this.registerTime} />
+                <Leaderboard
+                    pastGames={playedGames}
+
+                />
+            </div>
+        );
+    }
+
+}
+
+
+ReactDOM.render(
+    <div>
+        <FirstPart />
+        <SecondPart />
+
+    </div>
+    , container)
