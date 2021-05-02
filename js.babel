@@ -35,8 +35,18 @@ class Cronometro extends React.Component {
             this.stopTimer();
             let time = $('.timerButtonWrapper span').text().split(' ');
             //console.log(time[1]);
-            this.props.onGameEnd(time);
-            this.setState(this.state = { curTime: 0 });
+            if (time[1] == "5:00") {
+                alert("Incrivel! Você conseguiu!!");
+                this.props.onGameEnd(time);
+            } else if (time[1] == "5:01") {
+                alert("Você perdeu. Tente novamente.");
+                console.log('acabou');
+
+                this.setState(this.state = { curTime: 0 });
+            } else {
+                this.setState(this.state = { curTime: 0 });
+                this.props.onGameEnd(time);
+            }
         }
     }
 
@@ -48,6 +58,9 @@ class Cronometro extends React.Component {
         this.setState({
             curTime: this.state.curTime + 1,
         });
+        if (this.state.curTime == 501) {
+            this.toggleTimer();
+        }
         //console.log(this.state.curTime);
     }
 
